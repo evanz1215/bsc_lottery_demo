@@ -7,6 +7,11 @@
 		"abi": [
 			{
 				"inputs": [],
+				"stateMutability": "nonpayable",
+				"type": "constructor"
+			},
+			{
+				"inputs": [],
 				"name": "DevAddress",
 				"outputs": [
 					{
@@ -86,11 +91,11 @@
 	},
 	"sources": {
 		"contracts/Lottery.sol": {
-			"keccak256": "0x76259b2a8e939ff5f01ddd3c5957adf16b105cfb2b59dc4da317a47ff3032d22",
+			"keccak256": "0xfa02327257072553ceb548b188ffbc59c299dee44f68277561f56c9fa924ce41",
 			"license": "GPL-3.0",
 			"urls": [
-				"bzz-raw://483292785a48d7102c92dfb99fa1efd538f48ea4cd37c8ced3227d7423619c13",
-				"dweb:/ipfs/QmSTifZBU8bp7BmMjQguzpnVYnKAKCd1ziDevU7KWvuz7u"
+				"bzz-raw://3a3dd7cd24a1047ee6499abdcb0a101332c65680c7e5519f28205fa7f3fa1df9",
+				"dweb:/ipfs/QmdRr7LDpeRW2inR3hAwZAY1Lk49RWjGxUUtV5hN6BpNr5"
 			]
 		}
 	},

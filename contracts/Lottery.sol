@@ -86,4 +86,49 @@ contract LotteryGame {
 
     // 所有中獎紀錄資訊: 紀錄所有人的中獎紀錄 方便公開中獎資訊
     Winninginfo[] private WinningRecord;
+
+    constructor() {
+        DevAddress = msg.sender;
+        RecentDividendTime = block.timestamp;
+        LastBuyEggTime = block.timestamp;
+    }
+
+    // 安全加法
+    // internal:只能在合約內部使用（或被繼承的合約使用）; pure: 這個函數只依賴輸入參數，不讀取也不改寫區塊鏈上的資料（狀態變數）不會消耗gas fee
+    // 使用assert判斷若發生錯誤行為(惡意行為)會扣除gas fee ,使用require則不會扣除
+    function SafeMathadd(uint256 a, uint256 b) internal pure returns (uint256) {
+        uint256 c = a + b;
+        assert(c >= a);
+
+        return c;
+    }
+
+    // 安全減法
+    function SafeMathsub(uint256 a, uint256 b) internal pure returns (uint256) {
+        assert(b <= a);
+
+        return a - b;
+    }
+
+    // 安全乘法
+    function SafeMathmul(uint256 a, uint256 b) internal pure returns (uint256) {
+        if (a == 0) {
+            return 0;
+        }
+
+        uint256 c = a * b;
+
+        assert((c / a) == b);
+
+        return c;
+    }
+
+    // 安全除法
+    function SafeMathdiv(uint256 a, uint256 b) internal pure returns (uint256) {
+        assert(b > 0);
+
+        uint256 c = a / b;
+
+        return c;
+    }
 }
