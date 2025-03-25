@@ -1,0 +1,45 @@
+{
+	"compiler": {
+		"version": "0.8.26+commit.8a97fa7a"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"contracts/Lottery.sol": "LotteryGame"
+		},
+		"evmVersion": "cancun",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"contracts/Lottery.sol": {
+			"keccak256": "0x7294268bda3b0dfe8194ec7088b196cef92a42afdf68c1c799c9e02594c7041f",
+			"license": "GPL-3.0",
+			"urls": [
+				"bzz-raw://7d70f421c0c1302b33a5b89393bd054439e3ed88b6bf1427cd45ee6cbb1968e2",
+				"dweb:/ipfs/QmSHbPm5Q7YzMydJRHfyXCetJ4PP5pubfc3E2MgXUeH9Dy"
+			]
+		}
+	},
+	"version": 1
+}
