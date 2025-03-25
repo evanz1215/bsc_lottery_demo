@@ -36,6 +36,54 @@ contract LotteryGame {
     struct investorbalance {
         uint256 balance; // 餘額
         uint256 LastInvestTime; // 最近一次投資時間,投資時間必須至少7天才能取回
-        bool HasInvested; // 是否已經投資過
+        bool HasInvested; // 是否已經投資過，沒有投資過不能分紅
     }
+
+    // 每注彩票金額
+    uint256 private constant PerEggPrice = 0.02 ether; // 0.02BNB
+
+    // 接受投資的獎池最大值(獎池小於10000時才能投資)
+    uint256 private constant Maxinum_Investment_pool = 10000 ether; // 10000BNB
+
+    // 最小投資金額
+    uint256 private constant Mininum_Investment_amount = 1 ether; // 1BNB
+
+    // 最大投資金額
+    uint256 private constant Maxinum_Investment_amount = 1000 ether; // 1000BNB
+
+    // 開發者地址
+    address public DevAddress;
+
+    // 開發者收益 所有彩票購買金額3% + 所有中獎金額的5%
+    uint256 private DevProfit;
+
+    // 所有投資者的地址 分配投資收益
+    address[] private investors;
+
+    // 投資者資訊: 紀錄投資金額.投資時間
+    mapping(address => investorbalance) private InvestorsBalance;
+
+    // 投資者總投資金額
+    uint256 public TotalInvestmentAmount;
+
+    // 投資者收益: 所有中獎金額的5%
+    uint256 public InvestorsProfit;
+
+    // 最近一次分紅時間
+    uint256 public RecentDividendTime;
+
+    // 所有推薦者獎勵, 方便計算獎池 (獎池 = 合約餘額 - 推薦者推薦 - 投資者收益 - 開發者收益)
+    uint256 private TotalReferralProfit;
+
+    // 最近一次購買彩票時間: 當合約長期(15天)無人購買彩票時，允許開發者銷毀
+    uint256 private LastBuyEggTime;
+
+    // 所有用戶資訊
+    mapping(address => userinfo) private UsersInfo;
+
+    // 所有推薦者資訊: 紀錄推薦關係 , A地址推薦了B地址
+    mapping(address => address) private referrals;
+
+    // 所有中獎紀錄資訊: 紀錄所有人的中獎紀錄 方便公開中獎資訊
+    Winninginfo[] private WinningRecord;
 }

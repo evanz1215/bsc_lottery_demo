@@ -4,7 +4,60 @@
 	},
 	"language": "Solidity",
 	"output": {
-		"abi": [],
+		"abi": [
+			{
+				"inputs": [],
+				"name": "DevAddress",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "InvestorsProfit",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "RecentDividendTime",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "TotalInvestmentAmount",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			}
+		],
 		"devdoc": {
 			"kind": "dev",
 			"methods": {},
@@ -33,11 +86,11 @@
 	},
 	"sources": {
 		"contracts/Lottery.sol": {
-			"keccak256": "0x7294268bda3b0dfe8194ec7088b196cef92a42afdf68c1c799c9e02594c7041f",
+			"keccak256": "0x76259b2a8e939ff5f01ddd3c5957adf16b105cfb2b59dc4da317a47ff3032d22",
 			"license": "GPL-3.0",
 			"urls": [
-				"bzz-raw://7d70f421c0c1302b33a5b89393bd054439e3ed88b6bf1427cd45ee6cbb1968e2",
-				"dweb:/ipfs/QmSHbPm5Q7YzMydJRHfyXCetJ4PP5pubfc3E2MgXUeH9Dy"
+				"bzz-raw://483292785a48d7102c92dfb99fa1efd538f48ea4cd37c8ced3227d7423619c13",
+				"dweb:/ipfs/QmSTifZBU8bp7BmMjQguzpnVYnKAKCd1ziDevU7KWvuz7u"
 			]
 		}
 	},
