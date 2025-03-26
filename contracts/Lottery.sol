@@ -207,4 +207,43 @@ contract LotteryGame {
             LastBuyEggTime = block.timestamp;
         }
     }
+
+    // 根據開獎號碼計算中獎等級
+    function GetWinninggrade(uint32 LotteryNum) private pure returns (uint256) {
+        if (LotteryNum > 67108864) return 0;
+        if (LotteryNum >= 16777216) return 10;
+        if (LotteryNum >= 4194304) return 9;
+        if (LotteryNum >= 1048576) return 8;
+        if (LotteryNum >= 262144) return 7;
+        if (LotteryNum >= 65536) return 6;
+        if (LotteryNum >= 16384) return 5;
+        if (LotteryNum >= 4096) return 4;
+        if (LotteryNum >= 1024) return 3;
+        if (LotteryNum >= 256) {
+            return 2;
+        } else {
+            return 1;
+        }
+    }
+
+    // 根據中獎等級計算獲獎倍數
+    function GetWinningmultiple(uint256 winninginfo)
+        private
+        pure
+        returns (uint256)
+    {
+        if (winninginfo == 0) return 0;
+        if (winninginfo == 10) return 5;
+        if (winninginfo == 9) return 20;
+        if (winninginfo == 8) return 80;
+        if (winninginfo == 7) return 320;
+        if (winninginfo == 6) return 1200;
+        if (winninginfo == 5) return 4800;
+        if (winninginfo == 4) return 20000;
+        if (winninginfo == 3) return 100000;
+        if (winninginfo == 2) return 500000;
+        if (winninginfo == 1) return 2000000;
+
+        return 0;
+    }
 }
