@@ -246,4 +246,107 @@ contract LotteryGame {
 
         return 0;
     }
+
+    // 彩票開獎
+    function OpenEggs() external {
+        // 判斷開獎的人有沒有未開獎的彩票
+        require(
+            UsersInfo[msg.sender].eggsinfo.length > 0,
+            "You don't have undraw lottery tickets"
+        );
+
+        // 判斷區塊號 當前區塊號是否>購買彩票區塊號大 , 不能在購買的彩票區塊上開獎
+        require(
+            block.number >
+                UsersInfo[msg.sender]
+                    .eggsinfo[UsersInfo[msg.sender].eggsinfo.length - 1]
+                    .blocknumber,
+            "It's not time"
+        );
+
+        // 判斷是否有過往開獎號碼，有的話移除保存新的
+        if (UsersInfo[msg.sender].openedeggs.length > 0)
+            delete UsersInfo[msg.sender].openedeggs;
+
+        // 彩票總中獎金額
+        uint256 WinningAmount;
+
+        for (uint256 i = 0; i < UsersInfo[msg.sender].eggsinfo.length; i++) {
+            // 判斷是否失效 超過256區塊後就會失效
+
+            if (
+                uint256(
+                    blockhash(UsersInfo[msg.sender].eggsinfo[i].blocknumber)
+                ) == 0
+            ) continue;
+
+            // 計算開獎號碼
+            uint32 LotteryNum = uint32(
+                bytes4(
+                    keccak256(
+                        abi.encodePacked(
+                            UsersInfo[msg.sender].eggsinfo[i].uid,
+                            blockhash(
+                                UsersInfo[msg.sender].eggsinfo[i].blocknumber
+                            )
+                        )
+                    )
+                )
+            );
+
+            // 中獎等級
+            uint256 Winningrade = GetWinninggrade(LotteryNum);
+
+            // 判斷是否中獎
+            if (Winningrade > 0) {
+                uint256 WinningMoney = GetWinningmultiple(Winningrade) *
+                    UsersInfo[msg.sender].eggsinfo[i].mul *
+                    PerEggPrice;
+
+                WinningAmount += WinningMoney;
+
+                Winninginfo memory winning = Winninginfo(
+                    LotteryNum,
+                    UsersInfo[msg.sender].eggsinfo[i].mul,
+                    uint40(block.timestamp),
+                    msg.sender
+                );
+
+                WinningRecord.push(winning);
+            }
+
+            OpenedLotInfo memory OpenedLotterys = OpenedLotInfo(
+                LotteryNum,
+                UsersInfo[msg.sender].eggsinfo[i].mul
+            );
+
+            UsersInfo[msg.sender].openedeggs.push(OpenedLotterys);
+        }
+
+        // 刪除用戶購買紀錄刪除避免重複開獎
+        delete UsersInfo[msg.sender].eggsinfo;
+
+        // 每次中獎金額不能超過總獎池的70%
+        if (WinningAmount > 0) {
+            uint256 MaxWinningAmount = SafeMathdiv(
+                SafeMathmul(
+                    SafeMathsub(
+                        address(this).balance,
+                        (InvestorsProfit + TotalReferralProfit + DevProfit)
+                    ),
+                    70
+                ),
+                100
+            );
+
+            if (WinningAmount > MaxWinningAmount)
+                WinningAmount = MaxWinningAmount;
+
+            uint256 profit = SafeMathdiv(SafeMathmul(WinningAmount, 5), 100);
+            InvestorsProfit += profit;
+            DevProfit += profit;
+
+            payable(msg.sender).transfer(WinningAmount - profit * 2);
+        }
+    }
 }

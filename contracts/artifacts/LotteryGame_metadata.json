@@ -66,6 +66,13 @@
 			},
 			{
 				"inputs": [],
+				"name": "OpenEggs",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
 				"name": "RecentDividendTime",
 				"outputs": [
 					{
@@ -119,11 +126,11 @@
 	},
 	"sources": {
 		"contracts/Lottery.sol": {
-			"keccak256": "0xf2c7609c5b29533487b647207f8fb548f680363cbb45cebcbcf1a1dba13fd8f1",
+			"keccak256": "0x9ed0c867dd47fd3c4e98ec6e55ba0f4b0b0ce3263198bb7caeb8a6b3b061c750",
 			"license": "GPL-3.0",
 			"urls": [
-				"bzz-raw://e50072396df201e97f234a8849fe604cc7739dd5a2c75cf6d86f96233717764a",
-				"dweb:/ipfs/Qmd7txhZmHCZfawqgLct5ihqwr4JHh1VSW7i1i2KRsgFW5"
+				"bzz-raw://c55b7e6cadb9d07cd53211610262b81e7267d94f3963a9026a372347f1b2bcad",
+				"dweb:/ipfs/QmfKkikJu74TwEJNFpFKFqffrmKq2ccrRitBcajfC1D2TH"
 			]
 		}
 	},
