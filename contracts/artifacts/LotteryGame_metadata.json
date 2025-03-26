@@ -11,6 +11,34 @@
 				"type": "constructor"
 			},
 			{
+				"inputs": [
+					{
+						"internalType": "uint16",
+						"name": "LotCount",
+						"type": "uint16"
+					},
+					{
+						"internalType": "uint8",
+						"name": "mul",
+						"type": "uint8"
+					},
+					{
+						"internalType": "uint232",
+						"name": "Lucknum",
+						"type": "uint232"
+					},
+					{
+						"internalType": "address",
+						"name": "ref",
+						"type": "address"
+					}
+				],
+				"name": "BuyEggs",
+				"outputs": [],
+				"stateMutability": "payable",
+				"type": "function"
+			},
+			{
 				"inputs": [],
 				"name": "DevAddress",
 				"outputs": [
@@ -91,11 +119,11 @@
 	},
 	"sources": {
 		"contracts/Lottery.sol": {
-			"keccak256": "0xfa02327257072553ceb548b188ffbc59c299dee44f68277561f56c9fa924ce41",
+			"keccak256": "0x9ff37136fe0bf1f4818b2f212a141ef5ab501720765845267e34a7bc9d69dcda",
 			"license": "GPL-3.0",
 			"urls": [
-				"bzz-raw://3a3dd7cd24a1047ee6499abdcb0a101332c65680c7e5519f28205fa7f3fa1df9",
-				"dweb:/ipfs/QmdRr7LDpeRW2inR3hAwZAY1Lk49RWjGxUUtV5hN6BpNr5"
+				"bzz-raw://4739ea7dbbddd1ded5df50df450bd1772154635066c2eeb00af3d46d4c1073b0",
+				"dweb:/ipfs/Qma21rzHVdqY5ZvngCrM1WF1s6rifhfFywYTDVf4rdmhHq"
 			]
 		}
 	},

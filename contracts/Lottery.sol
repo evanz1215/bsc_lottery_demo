@@ -18,8 +18,8 @@ contract LotteryGame {
 
     // 用戶資訊
     struct userinfo {
-        Egginfo[] egginfo; // 彩票購買紀錄
-        OpenedLotInfo[] openedLotInfo; // 最近一次開獎號碼
+        Egginfo[] eggsinfo; // 彩票購買紀錄
+        OpenedLotInfo[] openedeggs; // 最近一次開獎號碼
         uint256 ReferralProfit; // 紀錄推薦獎勵
         bool actived; // 是否激活,用於需要自己購買至少一注彩票推薦才有效
     }
@@ -130,5 +130,81 @@ contract LotteryGame {
         uint256 c = a / b;
 
         return c;
+    }
+
+    // 購買彩票
+    function BuyEggs(
+        uint16 LotCount,
+        uint8 mul,
+        uint232 Lucknum,
+        address ref
+    ) external payable {
+        require(msg.value >= PerEggPrice, "Buy at least one egg");
+        require(mul >= 1 && mul <= 100, "Multiples between 1 and 100");
+        require(
+            LotCount >= 1 && LotCount <= 1000,
+            "Number of eggs between 1 and 100"
+        );
+        uint256 AllLotteryCount = SafeMathdiv(msg.value, PerEggPrice);
+
+        require(AllLotteryCount == LotCount * mul, "Invalid data");
+
+        for (uint256 i = 0; i < LotCount; i++) {
+            Egginfo memory egginfo = Egginfo(
+                keccak256(
+                    abi.encodePacked(
+                        block.timestamp,
+                        block.coinbase,
+                        msg.sender,
+                        Lucknum++
+                    )
+                ),
+                mul,
+                uint248(block.number)
+            );
+
+            UsersInfo[msg.sender].eggsinfo.push(egginfo);
+        }
+
+        if (!UsersInfo[msg.sender].actived)
+            UsersInfo[msg.sender].actived = true;
+
+        // 投資返勵
+        uint256 profit = SafeMathdiv(SafeMathmul(msg.value, 3), 100);
+
+        // 推薦返勵
+        uint256 Refprofit = SafeMathdiv(SafeMathmul(msg.value, 4), 100);
+
+        // 開發者加上3%
+        DevProfit += profit;
+
+        // 投資者加上3%
+        InvestorsProfit += profit;
+
+        // 判斷目前推薦者是否為空
+        if (referrals[msg.sender] == address(0)) {
+            // 判斷傳入的推薦者地址是否有效
+
+            // 不能將自己作為推薦者||傳入為空||未激活
+            if (
+                ref == msg.sender ||
+                ref == address(0) ||
+                !UsersInfo[msg.sender].actived
+            ) {
+                // 如果傳入無效值就以開發者地址當作推薦人
+                ref = DevAddress;
+            }
+            referrals[msg.sender] = ref;
+
+            // 判斷推薦者是否為開發者,若為真再加上推薦獎勵
+            if (referrals[msg.sender] == DevAddress) {
+                DevProfit += Refprofit;
+            } else {
+                UsersInfo[referrals[msg.sender]].ReferralProfit += Refprofit;
+                TotalReferralProfit += Refprofit;
+            }
+
+            LastBuyEggTime = block.timestamp;
+        }
     }
 }
