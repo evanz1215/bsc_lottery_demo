@@ -513,6 +513,12 @@ contract LotteryGame {
     }
 
     // 查詢開獎資訊
+    function GetLatestLottery() public view returns (OpenedLotInfo[] memory) {
+        return UsersInfo[msg.sender].openedeggs;
+    }
 
     // 查詢投資餘額
+    function GetInvestmentBalance(address addr) public view returns (uint256) {
+        return InvestorsBalance[addr].balance;
+    }
 }

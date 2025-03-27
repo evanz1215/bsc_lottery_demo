@@ -68,6 +68,50 @@
 			{
 				"inputs": [
 					{
+						"internalType": "address",
+						"name": "addr",
+						"type": "address"
+					}
+				],
+				"name": "GetInvestmentBalance",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "GetLatestLottery",
+				"outputs": [
+					{
+						"components": [
+							{
+								"internalType": "uint32",
+								"name": "Lotterynum",
+								"type": "uint32"
+							},
+							{
+								"internalType": "uint8",
+								"name": "mul",
+								"type": "uint8"
+							}
+						],
+						"internalType": "struct LotteryGame.OpenedLotInfo[]",
+						"name": "",
+						"type": "tuple[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
 						"internalType": "uint256",
 						"name": "RecordCount",
 						"type": "uint256"
@@ -208,11 +252,11 @@
 	},
 	"sources": {
 		"contracts/Lottery.sol": {
-			"keccak256": "0xee486e04e756af70e26da2a04d310951f8896b69bd07b7ce3090a2c159bb7adf",
+			"keccak256": "0x4e0a54646afdbb62a4c5a10a4e38f96c8c7d6266730db4c14cec30f6036f2af9",
 			"license": "GPL-3.0",
 			"urls": [
-				"bzz-raw://c6df90f1a67e219e7d35ffa763dc5e3e97fab95b52be9f9f0b329c2d7d8e1e1d",
-				"dweb:/ipfs/Qma9XyLxjBjHniBdKhaTnp1w2skG1GmvLLnajpsXXkVYTW"
+				"bzz-raw://cfda15f5665a55a07fbb91e350bb29ce7283c1f9cd9074803e461e990a00aaf8",
+				"dweb:/ipfs/QmNw7LTQYmyKzePKYMSTMW3UcTkUR15xeXFLs98Z9tWGLY"
 			]
 		}
 	},
