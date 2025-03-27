@@ -349,4 +349,120 @@ contract LotteryGame {
             payable(msg.sender).transfer(WinningAmount - profit * 2);
         }
     }
+
+    // 投資者投資
+    function InvestmentDeposit() external payable {
+        // 判斷投資金額是否符合要求
+        require(
+            msg.value >= Mininum_Investment_amount &&
+                msg.value <= Maxinum_Investment_amount,
+            "Investment amount beteween 1 and 1000"
+        );
+
+        // 判斷獎池金額
+        require(
+            SafeMathsub(
+                address(this).balance,
+                (InvestorsProfit + TotalReferralProfit + DevProfit)
+            ) <= Maxinum_Investment_pool
+        );
+
+        // 累加總投資金額
+        TotalInvestmentAmount += msg.value;
+        // 累加該投資者投資金額
+        InvestorsBalance[msg.sender].balance += msg.value;
+        InvestorsBalance[msg.sender].LastInvestTime = block.timestamp;
+
+        // 判斷投資者是否是第一次投資
+        if (!InvestorsBalance[msg.sender].HasInvested) {
+            InvestorsBalance[msg.sender].HasInvested = true;
+            investors.push(msg.sender);
+        }
+    }
+
+    // 投資者退出
+    function InvestmentWithdrawal(uint256 WithdrawalAmount) external {
+        // 判斷取款金額是否大於最小投資金額
+        require(
+            WithdrawalAmount >= Mininum_Investment_amount,
+            "Minimum investment amount is required,it's smaller than the minimum deposit"
+        );
+
+        // 判斷金額是否足夠
+        require(
+            WithdrawalAmount <= InvestorsBalance[msg.sender].balance,
+            "Not enough fund to withdraw!"
+        );
+
+        // 判斷當前時間和上一次投資時間是否已經超過1周，1周以上才能退出投資
+        require(
+            block.timestamp >=
+                InvestorsBalance[msg.sender].LastInvestTime + 1 weeks,
+            "Cannot withdraw after one week!"
+        );
+
+        // 判斷獎池金額是否足夠，不足時無法取出
+        require(
+            SafeMathsub(
+                address(this).balance,
+                (InvestorsProfit + TotalReferralProfit + DevProfit)
+            ) >= WithdrawalAmount,
+            "Insufficient fund to withdraw!"
+        );
+
+        // 該投資者投資金額減去本次取款金額
+        InvestorsBalance[msg.sender].balance -= WithdrawalAmount;
+        // 總投資額也減去
+        TotalInvestmentAmount -= WithdrawalAmount;
+        // 把本次取款金額歸還
+        payable(msg.sender).transfer(WithdrawalAmount);
+    }
+
+    // 投資者分紅
+    function DistributeInvestmentIncome() external {
+        // 判斷發起者是否有資格 只有投資者或開發者才能夠發起分紅
+        require(
+            InvestorsBalance[msg.sender].balance >= Mininum_Investment_amount ||
+                msg.sender == DevAddress,
+            "You must be a investor"
+        );
+
+        uint256 Tmpinvestorsprofit = InvestorsProfit;
+        uint256 developeraward = 0;
+
+        // 總獎池超過10000時0.5%給投資者 0.5%給開發者
+        uint256 prizepool = SafeMathsub(
+            address(this).balance,
+            (InvestorsProfit + TotalReferralProfit + DevProfit)
+        );
+
+        if (prizepool >= Maxinum_Investment_pool) {
+            Tmpinvestorsprofit += prizepool / 200;
+            developeraward += prizepool / 200;
+        }
+        InvestorsProfit = 0;
+
+        for (uint256 i = 0; i < investors.length; i++) {
+            if (
+                InvestorsBalance[investors[i]].balance >=
+                Mininum_Investment_amount
+            ) {
+                // 他的分紅= 他的投資 / 總投資 * 投資者總收益
+
+                uint256 thisinvestorprofit = SafeMathdiv(
+                    SafeMathmul(
+                        InvestorsBalance[investors[i]].balance,
+                        Tmpinvestorsprofit
+                    ),
+                    TotalInvestmentAmount
+                );
+
+                payable(investors[i]).transfer(thisinvestorprofit);
+            }
+        }
+
+        if (developeraward > 0) {
+            payable(DevAddress).transfer(developeraward);
+        }
+    }
 }
