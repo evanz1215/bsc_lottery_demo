@@ -53,6 +53,13 @@
 			},
 			{
 				"inputs": [],
+				"name": "DeveloperWithdrawal",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
 				"name": "DistributeInvestmentIncome",
 				"outputs": [],
 				"stateMutability": "nonpayable",
@@ -123,6 +130,13 @@
 				],
 				"stateMutability": "view",
 				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "WithdrawReferralProfit",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
 			}
 		],
 		"devdoc": {
@@ -153,11 +167,11 @@
 	},
 	"sources": {
 		"contracts/Lottery.sol": {
-			"keccak256": "0xa060eb7597ddd096a19ee424d0623758d594b1b3c011670b0573d7a368f4a7a2",
+			"keccak256": "0xbb4b441a9f31c4219525f61ce04c231a132837fea689f1504fe8a30882c6804d",
 			"license": "GPL-3.0",
 			"urls": [
-				"bzz-raw://dfeb32d44bf78aec24c0bd55303baf16b2f371a4253f09f12566103cde4969cf",
-				"dweb:/ipfs/QmUKKCsQUeU1dJceoo9NrRuR1J6MphvVPadGawFmnwATak"
+				"bzz-raw://ba10fc37070b99fea3651e8d57c6b73b3ed970ac3d1242e483d69ef7b890fb2d",
+				"dweb:/ipfs/QmdXwGgJxLuDYkB2XrhYfP5mzBGcRpWKrtvVyTjG6mU9b5"
 			]
 		}
 	},

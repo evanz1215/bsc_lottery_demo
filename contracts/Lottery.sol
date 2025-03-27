@@ -465,4 +465,28 @@ contract LotteryGame {
             payable(DevAddress).transfer(developeraward);
         }
     }
+
+    // 提取推薦者獎勵
+    function WithdrawReferralProfit() external {
+        // 推薦獎勵至少要有0.01才能提領
+        require(
+            UsersInfo[msg.sender].ReferralProfit >= 0.01 ether,
+            "Not enough profit to withdraw!"
+        );
+
+        uint256 profit = UsersInfo[msg.sender].ReferralProfit;
+        UsersInfo[msg.sender].ReferralProfit = 0;
+
+        TotalReferralProfit -= profit;
+        payable(msg.sender).transfer(profit);
+    }
+
+    // 提取開發者獎勵
+    function DeveloperWithdrawal() external {
+        require(msg.sender == DevAddress, "You must be the developer");
+        uint256 devprofit = DevProfit;
+        DevProfit = 0;
+
+        payable(DevAddress).transfer(devprofit);
+    }
 }
