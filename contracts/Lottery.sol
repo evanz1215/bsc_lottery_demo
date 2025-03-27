@@ -489,4 +489,30 @@ contract LotteryGame {
 
         payable(DevAddress).transfer(devprofit);
     }
+
+    // 查詢中獎紀錄
+    function GetWinningRecord(uint256 RecordCount)
+        public
+        view
+        returns (Winninginfo[] memory)
+    {
+        uint256 RecordCt = RecordCount;
+        uint256 WinningRecordLen = WinningRecord.length;
+
+        if (RecordCt > WinningRecordLen) {
+            RecordCt = WinningRecordLen;
+        }
+
+        Winninginfo[] memory LatelyWinnersRecord = new Winninginfo[](RecordCt);
+
+        for (uint256 i = 0; i < RecordCt; i++) {
+            LatelyWinnersRecord[i] = WinningRecord[WinningRecordLen - 1 - i];
+        }
+
+        return LatelyWinnersRecord;
+    }
+
+    // 查詢開獎資訊
+
+    // 查詢投資餘額
 }

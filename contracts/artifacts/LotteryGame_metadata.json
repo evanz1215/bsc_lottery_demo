@@ -66,6 +66,47 @@
 				"type": "function"
 			},
 			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "RecordCount",
+						"type": "uint256"
+					}
+				],
+				"name": "GetWinningRecord",
+				"outputs": [
+					{
+						"components": [
+							{
+								"internalType": "uint32",
+								"name": "LotteryNum",
+								"type": "uint32"
+							},
+							{
+								"internalType": "uint8",
+								"name": "mul",
+								"type": "uint8"
+							},
+							{
+								"internalType": "uint256",
+								"name": "timestamp",
+								"type": "uint256"
+							},
+							{
+								"internalType": "address",
+								"name": "winner",
+								"type": "address"
+							}
+						],
+						"internalType": "struct LotteryGame.Winninginfo[]",
+						"name": "",
+						"type": "tuple[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
 				"inputs": [],
 				"name": "InvestmentDeposit",
 				"outputs": [],
@@ -167,11 +208,11 @@
 	},
 	"sources": {
 		"contracts/Lottery.sol": {
-			"keccak256": "0xbb4b441a9f31c4219525f61ce04c231a132837fea689f1504fe8a30882c6804d",
+			"keccak256": "0xee486e04e756af70e26da2a04d310951f8896b69bd07b7ce3090a2c159bb7adf",
 			"license": "GPL-3.0",
 			"urls": [
-				"bzz-raw://ba10fc37070b99fea3651e8d57c6b73b3ed970ac3d1242e483d69ef7b890fb2d",
-				"dweb:/ipfs/QmdXwGgJxLuDYkB2XrhYfP5mzBGcRpWKrtvVyTjG6mU9b5"
+				"bzz-raw://c6df90f1a67e219e7d35ffa763dc5e3e97fab95b52be9f9f0b329c2d7d8e1e1d",
+				"dweb:/ipfs/Qma9XyLxjBjHniBdKhaTnp1w2skG1GmvLLnajpsXXkVYTW"
 			]
 		}
 	},
