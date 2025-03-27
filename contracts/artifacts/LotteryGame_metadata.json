@@ -40,6 +40,13 @@
 			},
 			{
 				"inputs": [],
+				"name": "DestructContract",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
 				"name": "DevAddress",
 				"outputs": [
 					{
@@ -252,11 +259,11 @@
 	},
 	"sources": {
 		"contracts/Lottery.sol": {
-			"keccak256": "0x4e0a54646afdbb62a4c5a10a4e38f96c8c7d6266730db4c14cec30f6036f2af9",
+			"keccak256": "0x53d7ef7ad032b3c506038a6fa8f041c777f8c3645df5718ff64bba2d593e2d81",
 			"license": "GPL-3.0",
 			"urls": [
-				"bzz-raw://cfda15f5665a55a07fbb91e350bb29ce7283c1f9cd9074803e461e990a00aaf8",
-				"dweb:/ipfs/QmNw7LTQYmyKzePKYMSTMW3UcTkUR15xeXFLs98Z9tWGLY"
+				"bzz-raw://5d6cd160f685e6c87699ffed7b1916780f0f32fb484fe9a79c80049875da9e3e",
+				"dweb:/ipfs/QmXskmsYBqjfP9LfT6YLVjhtHvGfK35WzMpK8JK5RCBG7Y"
 			]
 		}
 	},

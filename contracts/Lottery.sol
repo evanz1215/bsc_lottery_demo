@@ -521,4 +521,43 @@ contract LotteryGame {
     function GetInvestmentBalance(address addr) public view returns (uint256) {
         return InvestorsBalance[addr].balance;
     }
+
+    // 合約銷毀 當合約長久沒有玩開發者可以銷毀,已投資資金返回
+    function DestructContract() external {
+        require(msg.sender == DevAddress);
+        require(block.timestamp >= LastBuyEggTime + 15 days);
+
+        if (address(this).balance >= TotalInvestmentAmount) {
+            for (uint256 i = 0; i < investors.length; i++) {
+                if (
+                    InvestorsBalance[investors[i]].balance >=
+                    Mininum_Investment_amount
+                ) {
+                    payable(investors[i]).transfer(
+                        InvestorsBalance[investors[i]].balance
+                    );
+                }
+            }
+        } else {
+            // 如果不夠則以比例返回
+            uint256 contractBalance = address(this).balance;
+
+            if (contractBalance >= Mininum_Investment_amount) {
+                for (uint256 i = 0; i < investors.length; i++) {
+                    if (
+                        InvestorsBalance[investors[i]].balance >=
+                        Mininum_Investment_amount
+                    ) {
+                        // 投資者投資餘額 * 合約餘額 / 總投資金額
+                        payable(investors[i]).transfer(
+                            (InvestorsBalance[investors[i]].balance *
+                                contractBalance) / TotalInvestmentAmount
+                        );
+                    }
+                }
+            }
+        }
+
+        selfdestruct(payable(DevAddress));
+    }
 }
